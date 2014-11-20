@@ -4,7 +4,7 @@
 Tetromino::Tetromino( Tetromino::Name name ) :
     m_name( name ),
     m_angle( 0 ),
-    m_x( 0 ),
+    m_x( 3 ),
     m_y( 0 )
 {
 
@@ -25,7 +25,7 @@ void Tetromino::draw( Painter &p ) const
     }
 }
 
-void Tetromino::move(int dx, int dy)
+void Tetromino::move( int dx, int dy )
 {
     m_x += dx;
     m_y += dy;
@@ -45,12 +45,12 @@ bool Tetromino::map( int x, int y ) const
         "  8 "
         "  8 ",
 
-        "  8 "  // J
+        "    "  // J
         "  8 "
         "  8 "
         " 88 ",
 
-        " 8  "  // L
+        "    "  // L
         " 8  "
         " 8  "
         " 88 ",

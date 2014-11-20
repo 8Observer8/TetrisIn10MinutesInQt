@@ -1,6 +1,6 @@
 #include "Painter.h"
 
-void Painter::rect(int x1, int y1, int x2, int y2)
+void Painter::rect( int x1, int y1, int x2, int y2 )
 {
     glBegin( GL_QUADS );
     {

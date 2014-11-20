@@ -1,7 +1,8 @@
 #ifndef WELL_H
 #define WELL_H
 
-#include "Tetromino.h"
+class Tetromino;
+class Painter;
 
 class Well
 {
@@ -15,7 +16,13 @@ public:
     bool isCollision( const Tetromino & ) const;
 
     // Перенос тетромины в колодец
-    int unite( const Tetromino & );
+    void unite( const Tetromino & );
+
+    // Удаление полностью заполненных строк
+    int removeSolidLines();
+
+private:
+    bool m_map[20][10];
 };
 
 #endif // WELL_H

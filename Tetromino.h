@@ -24,6 +24,9 @@ public:
 
     bool map( int x, int y ) const;
 
+    int x() const { return m_x; }
+    int y() const { return m_y; }
+
 private:
     Name m_name;
     int m_angle;

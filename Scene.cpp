@@ -1,10 +1,19 @@
 #include "Scene.h"
 #include "Painter.h"
-#include "Tetromino.h"
 
 Scene::Scene( QWidget *parent ) :
     QGLWidget( parent )
 {
+    this->setFocusPolicy( Qt::StrongFocus );
+    connect( &m_timer, SIGNAL( timeout() ),
+             this, SLOT( slotUpdate() ) );
+    m_timer.start( 1000 );
+}
+
+void Scene::slotUpdate()
+{
+    m_game.tick();
+    updateGL();
 }
 
 void Scene::initializeGL()
@@ -14,16 +23,10 @@ void Scene::initializeGL()
 
 void Scene::paintGL()
 {
-    // Clear the window with current clearing color
     glClear( GL_COLOR_BUFFER_BIT );
 
-    // Set current drawing color
-    //		   R	 G	   B
-    glColor3f( 0.0f, 0.0f, 0.0f );
-
     Painter p;
-    Tetromino t( Tetromino::L );
-    t.draw( p );
+    m_game.draw( p );
 }
 
 void Scene::resizeGL( int w, int h )
@@ -40,4 +43,24 @@ void Scene::resizeGL( int w, int h )
 
     glMatrixMode( GL_MODELVIEW );
     glLoadIdentity();
+}
+
+void Scene::keyPressEvent( QKeyEvent *event )
+{
+    switch( event->key() ) {
+        case Qt::Key_Left:
+            m_game.keyEvent( Game::LEFT );
+            break;
+        case Qt::Key_Right:
+            m_game.keyEvent( Game::RIGHT );
+            break;
+        case Qt::Key_Up:
+            m_game.keyEvent( Game::UP );
+            break;
+        case Qt::Key_Down:
+            m_game.keyEvent( Game::DOWN );
+            break;
+    }
+
+    updateGL();
 }
